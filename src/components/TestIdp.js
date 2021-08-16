@@ -10,7 +10,7 @@ const TestIdp = ()=> {
     const validateEntityId = (e)=> {
         e.preventDefault();
         if(entityid.length > 1) {
-            fetch(`${REACT_APP_BACKEND_URL}/validateEntityId`, {
+            fetch(`${REACT_APP_BACKEND_URL}/api/validateEntityId`, {
                 method: 'POST',
                 type: 'CORS',
                 body: entityid

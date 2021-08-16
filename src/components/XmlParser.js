@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
 import "../App.css";
+import './xmlParser.css';
+import HelpPopper from "./HelpPopper";
+// import {image} from './src/components/questionMark.png';
 
 const XmlParser = () => {
   const file = useRef("");
@@ -17,6 +20,7 @@ const XmlParser = () => {
   });
   const [data, setData] = useState(null);
   const [loading,setLoading] = useState(false);
+  const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
 
@@ -40,7 +44,7 @@ const XmlParser = () => {
       alert("Please upload a valid url or file");
     } else {
       setLoading(true)
-      await fetch(`${REACT_APP_BACKEND_URL}/parseMetadata`, {
+      await fetch(`${REACT_APP_BACKEND_URL}/api/parseMetadata`, {
         method: "POST",
         mode: "cors",
         body: data,
@@ -122,8 +126,13 @@ const XmlParser = () => {
                   {" "}
                   <strong className="col-sm-3">Entity Id:</strong>
                   <div className="col-sm-8" >{resp.entityID.map(res => {
-                    return <p key={res.index}>{res.content}</p>})}
+                    return <div><p key={res.index}>{res.content}</p></div>})}
                   </div>
+                  <div onMouseEnter={() => setIsShown(true)}
+                    onMouseLeave={() => setIsShown(false)} ><img src="public/questionMark.png"></img></div>
+                    {isShown && (
+                          <HelpPopper/>         
+                        )}
                 </div>
               ) : null}
             </div>
@@ -175,7 +184,6 @@ const XmlParser = () => {
                           Single sign on Binding:{" "}
                         </strong>
                         <p className="col-sm-8">{signon.binding} </p>
-
                       </div>
                     );
                   })
@@ -194,6 +202,7 @@ const XmlParser = () => {
                   })
                 : null}
             </div>
+            
             <div className="col-sm-9">
             { typeof resp.error === 'object' && resp.error !== null ? <span>{resp.error.entityID_error} <br/> {resp.error.certificate_error} <br/> {resp.error.sso_error} <br/> {resp.error.acs_error} </span> : <span>{resp.error}</span> }
           </div>

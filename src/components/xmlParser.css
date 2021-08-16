@@ -1,0 +1,16 @@
+b:hover
+{
+    color: blue;
+}
+b{
+    color: grey;
+}
+
+.helpMsg
+{
+    background-color: lightblue;
+    padding: 20px;
+    height: fit-content;
+    width: fit-content;
+    float: left;
+}
