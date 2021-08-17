@@ -129,7 +129,7 @@ const XmlParser = () => {
                     return <div><p key={res.index}>{res.content}</p></div>})}
                   </div>
                   <div onMouseEnter={() => setIsShown(true)}
-                    onMouseLeave={() => setIsShown(false)} ><img src="public/questionMark.png"></img></div>
+                    onMouseLeave={() => setIsShown(false)} ><img src='/images/questionMark.png'></img></div>
                     {isShown && (
                           <HelpPopper/>         
                         )}
